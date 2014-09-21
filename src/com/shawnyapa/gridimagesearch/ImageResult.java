@@ -6,8 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class ImageResult {
 	
 	public String fullUrl;
@@ -23,7 +21,6 @@ public class ImageResult {
 			this.thumbUrl = json.getString("tbUrl");
 			this.height = json.getInt("height");
 			this.width = json.getInt("width");
-			Log.i("INFO", fullUrl.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +37,6 @@ public class ImageResult {
 			}
 			
 		}
-		Log.i("INFO", results.toString());
 		return results;
 		
 	}

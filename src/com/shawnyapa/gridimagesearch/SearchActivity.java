@@ -13,7 +13,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +28,8 @@ public class SearchActivity extends Activity {
 	private GridView gvResults;
 	private ArrayList<ImageResult> imageResults;
 	private ImageResultsAdapter aImageResults;
+	private int offset; // number of images already pulled and in the ListArray
+	private int rsz=8; // number of images to pull per query
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,6 @@ public class SearchActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				Intent i = new Intent(SearchActivity.this, ImageDisplayActivity.class);
 				ImageResult result = imageResults.get(position);
 				String fullUrl = result.fullUrl;
@@ -58,9 +58,26 @@ public class SearchActivity extends Activity {
 			}
 			
 		});
+        gvResults.setOnScrollListener(new EndlessScrollListener() {
+	    @Override
+	    public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+	        customLoadMoreDataFromApi(); 
+                // or customLoadMoreDataFromApi(totalItemsCount); 
+	    }
+        });
 		
 	}
 
+    // Append more data into the adapter
+    public void customLoadMoreDataFromApi() {
+      // This method probably sends out a network request and appends new data items to your adapter. 
+      // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
+      // Deserialize API response and then construct new objects to append to the adapter
+    	makeGoogleApiCall();
+    	
+    }
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,10 +89,15 @@ public class SearchActivity extends Activity {
     public void onImageSearch(View v) {
     	// https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=
     	// responseData =>results =>[x] =>tbUrl, title, url, width, height
-    	
-    	String start = "1";
-    	String searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&start=" + start + "&q=" + etQuery.getText().toString();
-    	Log.i("INFO", searchURL.toString());
+    	offset = 1;
+		imageResults.clear();
+		aImageResults.clear(); 
+    	makeGoogleApiCall();
+    }
+    
+    public void makeGoogleApiCall() {
+    	  
+    	String searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+ rsz +"&start=" + offset + "&q=" + etQuery.getText().toString();
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(searchURL, new JsonHttpResponseHandler() {
         	@Override
@@ -84,19 +106,13 @@ public class SearchActivity extends Activity {
         		JSONArray imageResultsJson = null;
         		try {
 					imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-					Log.i("INFO", imageResultsJson.toString());
-					imageResults.clear(); // Clear only for new searches
 					aImageResults.addAll(ImageResult.fromJSONArray(imageResultsJson));
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-        		//Log.i("INFO", imageResults.toString());
-        		//aImageResults.notifyDataSetChanged();
         	}
-        });
-    	
-    	
+        });  	
+    	offset=offset+rsz; // Increment the Offset by the number of pulled images
     }
 
     @Override

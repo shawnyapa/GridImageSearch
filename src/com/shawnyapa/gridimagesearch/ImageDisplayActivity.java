@@ -14,6 +14,7 @@ public class ImageDisplayActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_image_display);
 		String fullUrl = getIntent().getStringExtra("fullUrl");
 		ImageView ivfullImage = (ImageView) findViewById(R.id.ivFullImage);
