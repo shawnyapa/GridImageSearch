@@ -30,11 +30,14 @@ public class SearchActivity extends Activity {
 	private ImageResultsAdapter aImageResults;
 	private int offset; // number of images already pulled and in the ListArray
 	private int rsz=8; // number of images to pull per query
+	private int request_Code_Filter=1;
+	public FilterSettings filterSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        filterSetting = new FilterSettings();
         setupViews();
         imageResults = new ArrayList<ImageResult>();
         aImageResults = new ImageResultsAdapter(this, imageResults);
@@ -120,10 +123,21 @@ public class SearchActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //int id = item.getItemId();
+        //if (id == R.id.action_settings) {
+        //    return true;
+        //}
+    	setfilterImages();
         return super.onOptionsItemSelected(item);
     }
+
+
+	private void setfilterImages() {
+
+        //---Create Bundle Object and attach to the Intent object---
+		Intent i = new Intent(this, SettingsActivity.class);
+        i.putExtra("filterSetting", filterSetting);
+        startActivityForResult(i, request_Code_Filter);
+		
+	}
 }

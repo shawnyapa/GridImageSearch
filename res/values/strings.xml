@@ -7,5 +7,9 @@
     <string name="search_prompt">Find some Images</string>
     <string name="search_button">Search</string>
     <string name="title_activity_image_display">Full Image</string>
+    <string name="title_activity_settings">Image Filter Settings</string>
+    <string name="size">Size:</string>
+    <string name="color">Color:</string>
+    <string name="filter">Filter</string>
 
 </resources>
