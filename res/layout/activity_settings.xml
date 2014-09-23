@@ -9,7 +9,7 @@
     tools:context="com.shawnyapa.gridimagesearch.SettingsActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,11 +17,78 @@
         android:text="@string/size" />
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/spSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1" />
+        android:entries="@array/size_array"
+        android:prompt="@string/size"
+        android:layout_below="@+id/tvSize" />
+  
+    <TextView
+        android:id="@+id/tvColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spSize"
+        android:text="@string/color" />
+
+    <Spinner
+        android:id="@+id/spColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:entries="@array/color_array"
+        android:prompt="@string/color"
+        android:layout_below="@+id/tvColor" />
+
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spColor"
+        android:text="@string/type" />
+
+    <Spinner
+        android:id="@+id/spType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:entries="@array/type_array"
+        android:prompt="@string/type"
+        android:layout_below="@+id/tvType" />
+    
+    <TextView
+        android:id="@+id/tvSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spType"
+        android:text="@string/site" />
+
+    <EditText
+        android:id="@+id/etSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvType"
+        android:layout_alignRight="@+id/spType"
+        android:layout_below="@+id/tvSite"
+        android:hint="@string/site_prompt"
+        android:ems="10" >
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etSite"
+        android:layout_centerHorizontal="true"
+        android:onClick="saveSettings"
+        android:text="@string/button_save" />
 
 </RelativeLayout>

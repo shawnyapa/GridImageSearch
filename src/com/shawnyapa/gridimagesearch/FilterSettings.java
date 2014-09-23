@@ -11,7 +11,7 @@ public class FilterSettings implements Serializable{
 	public String Site;
 	
 	public void FilerSettings() {
-		Size = "All";
+		Size = "Small";
 		Color = "All";
 		Type = "All";
 		Site = "All";

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="size_array">
+		<item>All</item>
+		<item>Small</item>
+		<item>Medium</item>
+		<item>Large</item>
+	</string-array>
+	<string-array name="color_array">
+		<item>All</item>
+		<item>Black</item>
+		<item>Blue</item>
+		<item>Brown</item>
+		<item>Green</item>
+		<item>Yellow</item>
+	</string-array>
+	<string-array name="type_array">
+		<item>All</item>
+		<item>JGP</item>
+		<item>PNG</item>
+		<item>GIF</item>
+		<item>BMP</item>
+	</string-array>
+</resources>
