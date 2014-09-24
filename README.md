@@ -25,6 +25,7 @@ User Stories:
  - Check for Active Filter Values - including Toast Notification
   
 
-Screen Capture Included:
-
+Screen Capture Linked:
+<a href="http://laedm.com/GridImageSearch.gif"><img src="http://laedm.com/GridImageSearch.gif" title="Hosted by Shawn Yapa"/></a>
+http://laedm.com/GridImageSearch.gif
 
