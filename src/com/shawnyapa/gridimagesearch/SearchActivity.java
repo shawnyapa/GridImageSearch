@@ -101,6 +101,7 @@ public class SearchActivity extends Activity {
     private void checkFilter() {
     	Boolean filterActive = false;
     	searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+ rsz +"&start=" + offset + "&q=" + etQuery.getText().toString();
+    	
     	// Setup Size Filter
 		if (filterSetting.size.equals("Small")) {
 			searchURL = searchURL + "&imgsz=icon";
@@ -118,23 +119,25 @@ public class SearchActivity extends Activity {
 			searchURL = searchURL + "&imgsz=huge";
 			filterActive = true;
 		}
+		
 		// Setup Type Filter
-		if (filterSetting.type.equals("PNG")) {
-			searchURL = searchURL + "&as_filetype=png";
+		if (filterSetting.type.equals("Faces")) {
+			searchURL = searchURL + "&imgtype=face";
 			filterActive = true;
 		}
-		if (filterSetting.type.equals("JPG")) {
-			searchURL = searchURL + "&as_filetype=jpg";
+		if (filterSetting.type.equals("Photos")) {
+			searchURL = searchURL + "&imgtype=photo";
 			filterActive = true;
 		}
-		if (filterSetting.type.equals("GIF")) {
-			searchURL = searchURL + "&as_filetype=gif";
+		if (filterSetting.type.equals("Clipart")) {
+			searchURL = searchURL + "&imgtype=clipart";
 			filterActive = true;
 		}
-		if (filterSetting.type.equals("BMP")) {
-			searchURL = searchURL + "&as_filetype=bmp";
+		if (filterSetting.type.equals("Lineart")) {
+			searchURL = searchURL + "&imgtype=lineart";
 			filterActive = true;
 		}
+		
 		// Setup Color Filter
 		if (filterSetting.color.equals("Black")) {
 			searchURL = searchURL + "&imgcolor=black";
@@ -160,7 +163,7 @@ public class SearchActivity extends Activity {
 			searchURL = searchURL + "&imgcolor=yellow";
 			filterActive = true;
 		}
-		
+		// Setup Website Filter
 		if (!((filterSetting.site.equals("All")) || (filterSetting.site.equals("")))) {
 			searchURL = searchURL + "&as_sitesearch=" + filterSetting.site;
 			filterActive = true;
