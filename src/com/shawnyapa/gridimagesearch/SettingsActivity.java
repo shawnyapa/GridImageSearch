@@ -1,10 +1,12 @@
 package com.shawnyapa.gridimagesearch;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -17,6 +19,7 @@ public class SettingsActivity extends Activity {
 	private Spinner spType;
 	private Spinner spColor;
 	private EditText etSite;
+	private int request_Code_Filter=1;
 	
 
 	@Override
@@ -36,13 +39,10 @@ public class SettingsActivity extends Activity {
 		spColor = (Spinner) findViewById(R.id.spColor);
 		etSite = (EditText) findViewById(R.id.etSite);
 		
-		setSpinnerToValue(spSize, filterSetting.Size);
-		setSpinnerToValue(spType, filterSetting.Type);
-		setSpinnerToValue(spColor, filterSetting.Color);
-		etSite.setText(filterSetting.Site);
-		
-		String temp = spSize.getSelectedItem().toString();
-		//Log.i("INFO", temp);
+		setSpinnerToValue(spSize, filterSetting.size);
+		setSpinnerToValue(spType, filterSetting.type);
+		setSpinnerToValue(spColor, filterSetting.color);
+		etSite.setText(filterSetting.site);
 		
 		return true;
 	}
@@ -71,18 +71,22 @@ public class SettingsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void saveSettings() {
-		String Size = spSize.getSelectedItem().toString();
-		String Color = spColor.getSelectedItem().toString();
-		String Type = spType.getSelectedItem().toString();
-		String site = etSite.toString();
+	public void saveSettings(View v) {
 		
-		// Create Intent
-		// Create FilterSettings
-		// Set Values
-		// Add Extra to Intent (Serializable)
-		// start Intent
-		// finish activity
+		String size = spSize.getSelectedItem().toString();
+		String color = spColor.getSelectedItem().toString();
+		String type = spType.getSelectedItem().toString();
+		String site = etSite.getText().toString();
+		
+		filterSetting.size = size;
+		filterSetting.color = color;
+		filterSetting.type = type;
+		filterSetting.site = site;
+		
+		Intent i = new Intent(this, SettingsActivity.class);
+        i.putExtra("filterSetting", filterSetting);
+        setResult(RESULT_OK, i);
+        finish();
 		
 	}
 }

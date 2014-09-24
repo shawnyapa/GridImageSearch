@@ -13,6 +13,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 public class SearchActivity extends Activity {
@@ -32,6 +34,7 @@ public class SearchActivity extends Activity {
 	private int rsz=8; // number of images to pull per query
 	private int request_Code_Filter=1;
 	public FilterSettings filterSetting;
+	private String searchURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +97,41 @@ public class SearchActivity extends Activity {
     	// responseData =>results =>[x] =>tbUrl, title, url, width, height
     	offset = 1;
 		imageResults.clear();
-		aImageResults.clear(); 
+		aImageResults.clear();
     	makeGoogleApiCall();
     }
     
-    public void makeGoogleApiCall() {
+    private void checkFilter() {
+    	Boolean filterActive = false;
+    	searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+ rsz +"&start=" + offset + "&q=" + etQuery.getText().toString();
+		if (filterSetting.size.equals("Small")) {
+			searchURL = searchURL + "&imgsz=icon";
+			filterActive = true;
+		}
+		if (filterSetting.size.equals("Medium")) {
+			searchURL = searchURL + "&imgsz=medium";
+			filterActive = true;
+		}
+		if (filterSetting.size.equals("Large")) {
+			searchURL = searchURL + "&imgsz=xxlarge";
+			filterActive = true;
+		}
+		if (filterSetting.size.equals("Huge")) {
+			searchURL = searchURL + "&imgsz=huge";
+			filterActive = true;
+		}
+		
+		
+		
+		if (filterActive == true) {
+			Toast.makeText(this, "Filter is ACTIVE", Toast.LENGTH_LONG).show();
+		}
+	}
+
+
+	public void makeGoogleApiCall() {
     	  
-    	String searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+ rsz +"&start=" + offset + "&q=" + etQuery.getText().toString();
+		checkFilter();
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(searchURL, new JsonHttpResponseHandler() {
         	@Override
@@ -133,11 +164,30 @@ public class SearchActivity extends Activity {
 
 
 	private void setfilterImages() {
-
         //---Create Bundle Object and attach to the Intent object---
 		Intent i = new Intent(this, SettingsActivity.class);
         i.putExtra("filterSetting", filterSetting);
         startActivityForResult(i, request_Code_Filter);
 		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  // REQUEST_CODE is defined above
+	  if (resultCode == RESULT_OK && requestCode == request_Code_Filter) {
+	     // Extract name value from result extras
+	     FilterSettings filterReturn = (FilterSettings) data.getSerializableExtra("filterSetting");
+
+	     // If the Filter has been updated, notify the user with a Toast
+	     if (!((filterSetting.size.equals(filterReturn.size)) && (filterSetting.type.equals(filterReturn.type))
+	    		 && (filterSetting.color.equals(filterReturn.color)) && (filterSetting.site.equals(filterReturn.site)))) {
+	    	Toast.makeText(this, "Filter has been Updated", Toast.LENGTH_SHORT).show(); 
+	     } 
+	     
+	     filterSetting.size = filterReturn.size;
+	     filterSetting.type = filterReturn.type;
+	     filterSetting.color = filterReturn.color;
+	     filterSetting.site = filterReturn.site;
+	     
+	  }
 	}
 }

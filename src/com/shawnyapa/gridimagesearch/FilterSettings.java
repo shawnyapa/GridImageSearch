@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class FilterSettings implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	public String Size;
-	public String Color;
-	public String Type;
-	public String Site;
+	public String size;
+	public String color;
+	public String type;
+	public String site;
 	
-	public void FilerSettings() {
-		Size = "Small";
-		Color = "All";
-		Type = "All";
-		Site = "All";
-		
+	public FilterSettings() {
+		super();
+		size = "All";
+		color = "All";
+		type = "All";
+		site = "All";
 	}
 
 }

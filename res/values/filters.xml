@@ -5,6 +5,7 @@
 		<item>Small</item>
 		<item>Medium</item>
 		<item>Large</item>
+		<item>Huge</item>
 	</string-array>
 	<string-array name="color_array">
 		<item>All</item>
