@@ -6,14 +6,11 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -104,6 +101,7 @@ public class SearchActivity extends Activity {
     private void checkFilter() {
     	Boolean filterActive = false;
     	searchURL = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+ rsz +"&start=" + offset + "&q=" + etQuery.getText().toString();
+    	// Setup Size Filter
 		if (filterSetting.size.equals("Small")) {
 			searchURL = searchURL + "&imgsz=icon";
 			filterActive = true;
@@ -120,8 +118,53 @@ public class SearchActivity extends Activity {
 			searchURL = searchURL + "&imgsz=huge";
 			filterActive = true;
 		}
+		// Setup Type Filter
+		if (filterSetting.type.equals("PNG")) {
+			searchURL = searchURL + "&as_filetype=png";
+			filterActive = true;
+		}
+		if (filterSetting.type.equals("JPG")) {
+			searchURL = searchURL + "&as_filetype=jpg";
+			filterActive = true;
+		}
+		if (filterSetting.type.equals("GIF")) {
+			searchURL = searchURL + "&as_filetype=gif";
+			filterActive = true;
+		}
+		if (filterSetting.type.equals("BMP")) {
+			searchURL = searchURL + "&as_filetype=bmp";
+			filterActive = true;
+		}
+		// Setup Color Filter
+		if (filterSetting.color.equals("Black")) {
+			searchURL = searchURL + "&imgcolor=black";
+			filterActive = true;
+		}		
+		if (filterSetting.color.equals("Blue")) {
+			searchURL = searchURL + "&imgcolor=blue";
+			filterActive = true;
+		}		
+		if (filterSetting.color.equals("Brown")) {
+			searchURL = searchURL + "&imgcolor=brown";
+			filterActive = true;
+		}		
+		if (filterSetting.color.equals("Green")) {
+			searchURL = searchURL + "&imgcolor=green";
+			filterActive = true;
+		}
+		if (filterSetting.color.equals("Red")) {
+			searchURL = searchURL + "&imgcolor=red";
+			filterActive = true;
+		}
+		if (filterSetting.color.equals("Yellow")) {
+			searchURL = searchURL + "&imgcolor=yellow";
+			filterActive = true;
+		}
 		
-		
+		if (!((filterSetting.site.equals("All")) || (filterSetting.site.equals("")))) {
+			searchURL = searchURL + "&as_sitesearch=" + filterSetting.site;
+			filterActive = true;
+		}
 		
 		if (filterActive == true) {
 			Toast.makeText(this, "Filter is ACTIVE", Toast.LENGTH_LONG).show();

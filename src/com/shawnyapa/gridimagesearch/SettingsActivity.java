@@ -3,7 +3,6 @@ package com.shawnyapa.gridimagesearch;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,6 @@ public class SettingsActivity extends Activity {
 	private Spinner spType;
 	private Spinner spColor;
 	private EditText etSite;
-	private int request_Code_Filter=1;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
