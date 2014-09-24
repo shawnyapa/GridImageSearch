@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.shawnyapa.gridimagesearch.SearchActivity" >
 
+    
     <item
         android:id="@+id/filterImages"
         android:orderInCategory="200"

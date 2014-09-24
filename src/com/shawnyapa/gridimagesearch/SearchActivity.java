@@ -15,12 +15,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -35,6 +37,7 @@ public class SearchActivity extends Activity {
 	private int request_Code_Filter=1;
 	public FilterSettings filterSetting;
 	private String searchURL;
+	private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,7 @@ public class SearchActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
+
     }
     
     public void onImageSearch(View v) {
@@ -206,11 +210,11 @@ public class SearchActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
-        //if (id == R.id.action_settings) {
-        //    return true;
-        //}
-    	setfilterImages();
+        int id = item.getItemId();
+        if (id == R.id.filterImages) {
+            setfilterImages();
+        }
+        
         return super.onOptionsItemSelected(item);
     }
 
