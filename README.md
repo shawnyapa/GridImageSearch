@@ -19,6 +19,7 @@ User Stories:
  - Subsequent searches will have any filters applied to the search results
  - User can tap on any image in results to see the image full-screen
  - User can scroll down “infinitely” to continue loading more image results (up to 8 pages)
+ - 
  Optional:
  - Network Connectivity Check
  - Check for Filter Changes - including Toast Notification
