@@ -9,7 +9,10 @@ import org.json.JSONObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,7 +98,10 @@ public class SearchActivity extends Activity {
     	offset = 1;
 		imageResults.clear();
 		aImageResults.clear();
+		if (isNetworkAvailable()) {
     	makeGoogleApiCall();
+		} else { Toast.makeText(this, "Internet Connection Unavailable", Toast.LENGTH_SHORT).show();	
+		}
     }
     
     private void checkFilter() {
@@ -235,5 +241,12 @@ public class SearchActivity extends Activity {
 	     filterSetting.site = filterReturn.site;
 	     
 	  }
+	}
+	
+	private Boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
 	}
 }
